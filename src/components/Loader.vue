@@ -17,6 +17,8 @@ export default {
 @import "../styles/vars";
 
 .loader {
+  background-image: url(../assets/img/bg-netflix.jpeg);
+  background-size: cover;
   position: fixed;
   top: 0;
   left: 0;
@@ -29,6 +31,7 @@ export default {
   background-color: $secondarycolor;
 }
 .text {
+  color: white;
   font-size: 40%;
   margin-top: 100px;
   animation: animate 2s linear infinite;

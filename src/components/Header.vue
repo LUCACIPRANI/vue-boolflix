@@ -5,10 +5,20 @@
 -->
   <header>
     <div class="header">
-      <h4>BOOLFLIX</h4>
+      <h4 
+        class="reset" 
+        @click.prevent="reloadPage">
+        BOOLFLIX
+      </h4>
       <div>
-        <input type="text" class="form-control" v-model="queryText" />
-        <button @click="$emit('search', 'queryText')" type="submit">
+        <input
+          @keyup.enter="$emit('search', queryText)"
+          type="text"
+          placeholder="Type here"
+          class="form-control"
+          v-model="queryText"
+        />
+        <button @click.prevent="$emit('search', queryText)" type="submit">
           Search
         </button>
       </div>
@@ -24,7 +34,14 @@ export default {
       queryText: "",
     };
   },
-  mounted() {},
+  methods: {
+    // reload a Page
+    reloadPage() {
+      this.queryText = "";
+      this.$emit("searchMovie", this.queryText);
+      location.reload();
+    },
+  },
 };
 </script>
 
@@ -39,21 +56,27 @@ header {
   background-color: black;
   .header {
     @include spBetw();
-    padding: 10px;
+    padding: 15px;
     h4 {
       color: $primarycolor;
     }
+    .reset{
+      &:hover {
+        cursor: pointer;
+      }
+    }
     input {
-      margin: 0 5px;
-      padding: 2px;
+      padding: 6px;
+      border: none;
       &:hover {
         cursor: pointer;
       }
     }
     button {
-      background-color: white;
+      background-color: $primarycolor;
       border: none;
-      padding: 3.5px;
+      color: white;
+      padding: 6px;
       font-weight: 700;
       &:hover {
         cursor: pointer;

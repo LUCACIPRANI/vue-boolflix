@@ -3,14 +3,18 @@
     FIGLIO/ PADRE, da APP.VUE 
     passo PROPS 
 -->
-  <main>
-    <div class="movie">
-      <h4>{{ moviesProps.title }}</h4>
-      <div>{{ moviesProps.original_title }}</div>
-      <div>{{ moviesProps.original_language }}</div>
-      <div>{{ moviesProps.vote_average }}</div>
+<div class="main-container">
+  <div class="card-movie">
+    <h4> <span >Title</span> {{ moviesProps.title }}</h4>
+    <h4> <span >Original Title: </span> {{ moviesProps.original_title }}</h4>
+    <div> <span >Language: </span> 
+      <img :src="require(`../assets/img/${ moviesProps.original_language}.png`)">
     </div>
-  </main>
+    <div> <span> Reviews: </span>{{ moviesProps.vote_average }}</div>
+    <div> <span> images </span>{{ moviesProps.vote_average }}</div>
+
+  </div>
+</div>
 </template>
 
 <script>
@@ -18,11 +22,8 @@ export default {
   name: "Main",
   props: ["moviesProps"],
   data() {
-    return {
-    };
+    return {};
   },
-  mounted() {},
-  computed() {},
 };
 </script>
 
@@ -31,4 +32,31 @@ export default {
 @import "@/styles/mixin.scss";
 @import "@/styles/general.scss";
 @import "@/styles/vars.scss";
+.main-container{
+  margin: 0 auto;
+}
+.card-movie {
+  min-height: 330px;
+  width: 245px;
+  border-radius: 6px;
+  background-color: lightgray;
+  margin: 18px;
+  padding: 5px;
+  float: left;
+  text-align: start;
+  &:hover{
+    cursor: pointer;
+  }
+  span{
+    font-size: 80%;
+    color: gray;
+    margin: 0 5px;
+  }
+  img{
+    width: 30px;
+    height: 20px;
+    object-fit: contain;
+
+  }
+}
 </style>
