@@ -61,12 +61,11 @@ header {
     input {
       padding: 6px;
       border: none;
-      
     }
     button {
       background-color: $primarycolor;
       border: none;
-      color: white;
+      color: $color;
       padding: 6px;
       font-weight: 700;
       &:hover {

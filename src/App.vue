@@ -2,7 +2,7 @@
   <div>
     <section id="app">
       <div v-if="!loading">
-        <!-- HEADER  richiamo evento click EMIT impostato nell'header-->
+        <!-- HEADER richiamo evento click EMIT impostato -->
         <Header @performSearch="search" />
         <!-- MAIN  -->
         <div 

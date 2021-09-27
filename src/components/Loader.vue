@@ -15,28 +15,26 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 @import "../styles/vars";
+@import "../styles/mixin";
+
 
 .loader {
-  background-image: url(../assets/img/bg-netflix.jpeg);
-  background-size: cover;
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
+  background-image: url(../assets/img/bg-netflix.jpeg);
+  background-size: cover;
   background-color: $secondarycolor;
+  @include center();
+  @include HeWi100();
 }
 .text {
-  color: white;
+  color: $color;
+  font-weight: bold;
   font-size: 40%;
   margin-top: 100px;
   animation: animate 2s linear infinite;
 }
-
 img {
   width: 70px;
   margin: 1rem 0;
@@ -44,10 +42,10 @@ img {
 }
 
 @keyframes animate {
-  from{
+  from {
     transform: scale(1.5) perspective(10px);
   }
-  to{
+  to {
     transform: scale(3.5) perspective(10px);
   }
 }

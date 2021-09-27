@@ -1,11 +1,11 @@
 @mixin center($type: 'both') {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
-    @if $type == 'horizontal' {
+    @if $type == 'vertical' {
         justify-content: center;
     }
-    @else if $type == 'vertical' {
+    @else if $type == 'horizontal' {
         align-items: center;
     }
     @else if $type == 'both' {
@@ -20,16 +20,7 @@
     justify-content: space-between;
     align-items: center;
 }
-@mixin spAr($type: 'flex-start') {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-}
-
-@mixin endJC($type: 'flex-end') {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+@mixin HeWi100($type: 't-100') {
+    height: 100%;
+    width: 100%;
 }
