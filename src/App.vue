@@ -1,20 +1,22 @@
 <template>
   <div>
-    <section id="app" class="container">
+    <section id="app">
       <div v-if="!loading">
         <!-- HEADER  richiamo evento click EMIT impostato nell'header-->
-        <Header 
-          @performSearch="search" 
-        />
+        <Header @performSearch="search" />
         <!-- MAIN  -->
-        <div class="container" 
-        v-for="(movie, index) in movieList" 
-        :key="index">
-          <Main :key="index" 
-          :moviesProps="movie" 
-          :tvProps="movie"
-          />
-          
+        <div 
+          v-for="(tv, index) in tvList" 
+          :key="index"
+        >
+          <Main :key="index" :info="tv" />
+        </div>
+
+        <div
+          v-for="(movie, index) in movieList"
+          :key="index"
+        >
+          <Main :key="index" :info="movie" />
         </div>
       </div>
       <Loader v-else />
@@ -37,15 +39,13 @@ export default {
   },
   data() {
     return {
-      // axios call & get movie
       ApiUrlMovie: "https://api.themoviedb.org/3/search/movie?api_key=",
-      ApiKey: "067b4cde552c058a889d074fbf25bd57&query=",
       ApiUrlSeries: "https://api.themoviedb.org/3/search/tv?api_key=",
+      ApiKey: "067b4cde552c058a889d074fbf25bd57&query=",
       queryText: "",
       movieList: [],
       tvList: [],
-      // LOADER
-      loading: false,
+      loading: true,
     };
   },
   created() {
@@ -58,12 +58,12 @@ export default {
       axios
         .get(this.ApiUrlMovie + this.ApiKey + this.queryText)
         .then((res) => {
+          console.log(res.data.results);
           if (res.data.results.length > 0) {
             for (let i = 0; i < res.data.results.length; i++) {
               let movie = res.data.results[i];
               if (!this.movieList.includes(movie)) {
                 this.movieList.push(movie);
-                console.log(this.movieList);
               }
             }
           }
@@ -76,12 +76,12 @@ export default {
       axios
         .get(this.ApiUrlSeries + this.ApiKey + this.queryText)
         .then((res) => {
+          console.log(res.data.results);
           if (res.data.results.length > 0) {
             for (let i = 0; i < res.data.results.length; i++) {
               let movie = res.data.results[i];
               if (!this.tvList.includes(movie)) {
                 this.tvList.push(movie);
-                console.log(this.tvList);
               }
             }
           }
