@@ -1,28 +1,46 @@
 <template>
-  <!-- RICEVO !! 
-    FIGLIO/ PADRE, da APP.VUE 
-    passo PROPS 
--->
-<div class="main-container">
-  <div class="card-movie">
-    <h4> <span >Title</span> {{ moviesProps.title }}</h4>
-    <h4> <span >Original Title: </span> {{ moviesProps.original_title }}</h4>
-    <div> <span >Language: </span> 
-      <img :src="require(`../assets/img/${ moviesProps.original_language}.png`)">
+  <div class="main-container">
+    <!-- movies  -->
+    <div class="cards-movie">
+      <h4>Movie</h4>
+      <div>
+        <img src="require(`imageURL${moviesProps.backdrop_path}`)" alt="">
+      </div>
+      <h4><span>Title</span> {{ moviesProps.title }}</h4>
+      <h4><span>Original Title: </span> {{ moviesProps.original_title }}</h4>
+      <div>
+        <span>Language: </span>
+        <img
+          :src="require(`../assets/img/${moviesProps.original_language}.png`)"
+        />
+      </div>
+      <div><span> Reviews: </span>{{ moviesProps.vote_average }}</div>
     </div>
-    <div> <span> Reviews: </span>{{ moviesProps.vote_average }}</div>
-    <div> <span> images </span>{{ moviesProps.vote_average }}</div>
-
+    <!-- tv series  -->
+    <div class="cards-tv">
+      <h4>TV Series</h4>
+      <div>
+        <img src="require(`imageURL${tvProps.backdrop_path}`)" alt="">
+      </div>
+      <h4><span>Name:</span> {{ tvProps.name }}</h4>
+      <h4><span>Original Name: </span> {{ tvProps.original_name }}</h4>
+      <div>
+        <span>Language: </span>
+        <img :src="require(`../assets/img/${tvProps.original_language}.png`)" />
+      </div>
+      <div><span> Reviews: </span>{{ tvProps.vote_average }}</div>
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 export default {
   name: "Main",
-  props: ["moviesProps"],
+  props: ["moviesProps", "tvProps"],
   data() {
-    return {};
+    return {
+      imageURL: "https://image.tmdb.org/t/p/w300",
+    };
   },
 };
 </script>
@@ -32,10 +50,11 @@ export default {
 @import "@/styles/mixin.scss";
 @import "@/styles/general.scss";
 @import "@/styles/vars.scss";
-.main-container{
+.main-container {
   margin: 0 auto;
 }
-.card-movie {
+.cards-movie,
+.cards-tv {
   min-height: 330px;
   width: 245px;
   border-radius: 6px;
@@ -44,19 +63,18 @@ export default {
   padding: 5px;
   float: left;
   text-align: start;
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
-  span{
+  span {
     font-size: 80%;
     color: gray;
     margin: 0 5px;
   }
-  img{
+  img {
     width: 30px;
     height: 20px;
     object-fit: contain;
-
   }
 }
 </style>

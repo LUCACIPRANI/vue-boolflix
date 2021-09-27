@@ -1,8 +1,4 @@
 <template>
-  <!--INVIO !!
-    FIGLIO/ PADRE, con HEADER-- APP.VUE 
-    passo EMIT 
--->
   <header>
     <div class="header">
       <h4 
@@ -12,13 +8,13 @@
       </h4>
       <div>
         <input
-          @keyup.enter="$emit('search', queryText)"
+          @keyup.enter="$emit('performSearch', queryText)"
           type="text"
           placeholder="Type here"
           class="form-control"
           v-model="queryText"
         />
-        <button @click.prevent="$emit('search', queryText)" type="submit">
+        <button @click.prevent="$emit('performSearch', queryText)" type="submit">
           Search
         </button>
       </div>
@@ -35,7 +31,6 @@ export default {
     };
   },
   methods: {
-    // reload a Page
     reloadPage() {
       this.queryText = "";
       this.$emit("searchMovie", this.queryText);
@@ -59,18 +54,14 @@ header {
     padding: 15px;
     h4 {
       color: $primarycolor;
-    }
-    .reset{
       &:hover {
         cursor: pointer;
-      }
+      };
     }
     input {
       padding: 6px;
       border: none;
-      &:hover {
-        cursor: pointer;
-      }
+      
     }
     button {
       background-color: $primarycolor;
