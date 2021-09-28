@@ -1,51 +1,32 @@
 <template>
   <div class="main-container">
-    <!-- movies  -->
+    <h1>Popular on NETFLIX</h1>
     <div class="cards">
       <div class="thefront">
         <p v-if="info.poster_path">
           <img
             class="image"
             :src="`${imageURL}${info.poster_path}`"
-            :alt="info.name ? info.name : info.title"
+            :alt="info.name"
           />
         </p>
         <p v-else>
           <img
             class="noImage"
             src="../assets/img/no-av.jpeg"
-            :alt="info.name ? info.name : info.title"
+            :alt="info.name"
           />
         </p>
       </div>
       <div class="theback">
         <ul>
           <li>
-            <span class="descr">Title: </span>
-            {{ info.name ? info.name : info.title }}
+            <span class="descr">name: </span>
+            {{ info.name }}
           </li>
           <li>
-            <span class="descr">Original Title: </span>
-            {{ info.original_title ? info.original_title : info.original_name }}
-          </li>
-          <li>
-            <span class="descr">Language: </span>
-            <img
-              v-if="availableFlags.includes(info.original_language)"
-              class="flags"
-              :src="require(`../assets/img/${info.original_language}.png`)"
-            />
-            <p v-else>{{ info.original_language }}</p>
-          </li>
-          <li>
-            <span class="descr">Review: </span>
-            <i
-              v-for="n in 5"
-              :key="n"
-              class="fa-star"
-              :class="n <= getVote() ? 'fas' : 'far'"
-            >
-            </i>
+            <span class="descr">Popularity: </span>
+            <i>{{ info.popularity}}</i>
           </li>
           <li>
             <span class="descr">Overview: 
@@ -62,23 +43,11 @@
 
 <script>
 export default {
-  name: "Main",
+  name: "Popular",
   props: ["info"],
   data() {
     return {
       imageURL: "https://image.tmdb.org/t/p/w342/",
-      availableFlags: [
-        "it",
-        "cs",
-        "en",
-        "es",
-        "ru",
-        "de",
-        "zh",
-        "ja",
-        "po",
-        "fr",
-      ],
     };
   },
   methods: {
@@ -148,14 +117,6 @@ export default {
   display: inline;
   font-size: 80%;
   font-weight: 300;
-  }
-  .flags {
-    width: 30px;
-    height: 20px;
-    object-fit: cover;
-  }
-  .fa-star {
-    color: #ffd700;
   }
 }
 </style>

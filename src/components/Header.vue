@@ -4,7 +4,7 @@
       <h3 
         class="reset" 
         @click.prevent="reloadPage">
-        BOOLFLIX
+          <img src="https://analyticsindiamag.com/wp-content/uploads/2020/03/493f5bba-81a4-11e9-bf79-066b49664af6_cm_1440w.png" alt="">
       </h3>
       <div>
         <input
@@ -51,7 +51,10 @@ header {
   background-color: black;
   .header {
     @include spBetw();
-    padding: 15px;
+    img{
+      height: 60px;
+      width: 120px;
+    }
     h3 {
       color: $primarycolor;
       &:hover {
@@ -59,14 +62,15 @@ header {
       };
     }
     input {
-      padding: 6px;
+      padding: 8px;
       border: none;
     }
     button {
       background-color: $primarycolor;
       border: none;
       color: $color;
-      padding: 6px;
+      padding: 8px;
+      margin-right: 15px;
       font-weight: 700;
       &:hover {
         cursor: pointer;
