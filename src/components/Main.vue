@@ -3,40 +3,56 @@
     <!-- movies  -->
     <div class="cards">
       <div class="thefront">
-        <img class="image" :src="`${imageURL}${info.poster_path}`" alt="" />
+        <p v-if="info.poster_path">
+          <img
+            class="image"
+            :src="`${imageURL}${info.poster_path}`"
+            :alt="info.name ? info.name : info.title"
+          />
+        </p>
+        <p v-else>
+          <img
+            class="unAvail"
+            src="../assets/img/no-av.jpeg"
+            :alt="info.name ? info.name : info.title"
+          />
+        </p>
       </div>
       <div class="theback">
         <ul>
           <li>
             <span class="descr">Title: </span>
-            {{ info ? info.name : info.title }}
+            {{ info.name ? info.name : info.title }}
           </li>
           <li>
             <span class="descr">Original Title: </span>
-            {{ info ? info.original_title : info.original_name }}
+            {{ info.original_title ? info.original_title : info.original_name }}
           </li>
           <li>
             <span class="descr">Language: </span>
             <img
+              v-if="availableFlags.includes(info.original_language)"
               class="flags"
               :src="require(`../assets/img/${info.original_language}.png`)"
             />
+            <p v-else>{{ info.original_language }}</p>
           </li>
           <li>
-            <ul class="rating-list">
-              <span class="descr"> Reviews: </span>
-              <li><i class="fa fa-star yellow"></i></li>
-              <li><i class="fa fa-star gray"></i></li>
-              {{
-                info.vote_average
-              }}
-            </ul>
+            <span class="descr">Review: </span>
+            <i
+              v-for="n in 5"
+              :key="n"
+              class="fa-star"
+              :class="n <= getVote() ? 'fas' : 'far'"
+            >
+            </i>
           </li>
           <li>
-            <span class="descr">Overview: </span>Lorem ipsum dolor sit amet
-            consectetur adipisicing elit. Provident corrupti incidunt nulla
-            necessitatibus autem rem fuga a, nobis, vitae consequuntur odio
-            impedit est libero sequi officiis? Ad ipsum facere excepturi!
+            <span class="descr">Overview: 
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident corrupti incidunt nulla necessitatibus autem rem fuga a, nobis, vitae consequuntur odio impedit est libero sequi officiis? Ad ipsum facere excepturi!
+            </p>
+            </span>
           </li>
         </ul>
       </div>
@@ -51,15 +67,23 @@ export default {
   data() {
     return {
       imageURL: "https://image.tmdb.org/t/p/w342/",
+      availableFlags: [
+        "it",
+        "cs",
+        "en",
+        "es",
+        "ru",
+        "de",
+        "zh",
+        "ja",
+        "po",
+        "fr",
+      ],
     };
   },
   methods: {
-    getRatings() {
-      let ratings = this.info.vote_average;
-      for (let rating in ratings) {
-        const starProportion = Math.round(ratings[rating] / 2);
-        console.log(starProportion);
-      }
+    getVote() {
+      return Math.ceil(this.info.vote_average / 2);
     },
   },
 };
@@ -70,23 +94,22 @@ export default {
 @import "@/styles/mixin.scss";
 @import "@/styles/general.scss";
 @import "@/styles/vars.scss";
+
 .main-container {
-  margin: 0 auto;
-  width: 92%;
+  margin: 60px auto;
+  margin-bottom: 30px;
+  width: 93%;
 }
 .cards {
   position: relative;
-  min-height: 380px;
-  width: 220px;
-  margin: 20px;
-  border-radius: 6px;
+  @include cardSize();
   background-color: black;
   color: $color;
   line-height: 1.4rem;
   float: left;
   text-align: start;
   transform-style: preserve-3d;
-  transition: all 2s ease;
+  transition: transform 2s;
   &:hover {
     transform: rotateY(180deg);
     cursor: pointer;
@@ -99,42 +122,36 @@ export default {
   position: absolute;
   @include HeWi100();
   backface-visibility: hidden;
-  padding: 3px;
+  color: $color;
   .image {
     @include HeWi100();
-    object-fit: cover;
+    object-fit: contain;
+  }
+  .unAvail {
+    @include cardSize();
   }
 }
 .theback {
-  width: 100%;
-  height: 100%;
+  @include HeWi100();
   padding: 2px;
   backface-visibility: hidden;
   transform: rotateY(180deg);
-  &:hover {
-    backface-visibility: visible;
-  }
+  color: $color;
   ul li {
     list-style: none;
+  }
+  p{
+  display: inline;
+  font-size: 80%;
+  font-weight: 300;
   }
   .flags {
     width: 30px;
     height: 20px;
     object-fit: cover;
   }
-}
-.fa-star:before {
-  content: "\f005 \f005 \f005 \f005 \f005";
-}
-.rating-list li i.yellow {
-  display: inline;
-  color: #ffd700;
-}
-.rating-list li i.gray {
-  display: none;
-  color: gray;
-}
-.fa {
-  display: inline-block;
+  .fa-star {
+    color: #ffd700;
+  }
 }
 </style>

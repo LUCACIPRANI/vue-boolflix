@@ -6,17 +6,17 @@
         <Header @performSearch="search" />
         <!-- MAIN  -->
         <div 
-          v-for="(tv, index) in tvList" 
-          :key="index"
+          v-for="(tv) in tvList" 
+          :key="tv.id"
         >
-          <Main :key="index" :info="tv" />
+          <Main :key="tv.id" :info="tv" />
         </div>
 
         <div
-          v-for="(movie, index) in movieList"
-          :key="index"
+          v-for="(movie) in movieList"
+          :key="movie.id"
         >
-          <Main :key="index" :info="movie" />
+          <Main :key="movie.id" :info="movie" />
         </div>
       </div>
       <Loader v-else />
@@ -114,6 +114,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import "@/styles/mixin.scss";
 @import "@/styles/general.scss";
 @import "@/styles/vars.scss";

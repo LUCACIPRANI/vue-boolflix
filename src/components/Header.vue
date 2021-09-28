@@ -1,11 +1,11 @@
 <template>
   <header>
     <div class="header">
-      <h4 
+      <h3 
         class="reset" 
         @click.prevent="reloadPage">
         BOOLFLIX
-      </h4>
+      </h3>
       <div>
         <input
           @keyup.enter="$emit('performSearch', queryText)"
@@ -52,7 +52,7 @@ header {
   .header {
     @include spBetw();
     padding: 15px;
-    h4 {
+    h3 {
       color: $primarycolor;
       &:hover {
         cursor: pointer;
